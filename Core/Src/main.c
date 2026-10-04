@@ -94,6 +94,27 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if (HAL_GPIO_ReadPin(GPIOA, K1_Pin) == GPIO_PIN_SET)//检测是否按下K1
+    {
+      HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_RESET);//全变亮
+    }
+    else if (HAL_GPIO_ReadPin(GPIOC, K2_Pin) == GPIO_PIN_SET)//检测是否按下K2
+    {
+      while(1)//流水灯
+      {
+        HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, LED_G_Pin|LED_B_Pin, GPIO_PIN_SET);
+        HAL_Delay(500);
+
+        HAL_GPIO_WritePin(GPIOA, LED_G_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_B_Pin, GPIO_PIN_SET);
+        HAL_Delay(500);
+
+        HAL_GPIO_WritePin(GPIOA, LED_B_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin, GPIO_PIN_SET);
+        HAL_Delay(500);
+      }
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
